@@ -2,7 +2,9 @@ from lexer.operators import OPERATORS_2, OPERATORS_1, DELIMS
 from lexer.keywords import KEYWORDS
 from lexer.token import TokenType, Token
 from typing import List, Dict
+from lexer.operators import DELIMS, OPERATORS_1, OPERATORS_2
 
+stack = []
 
 class Scanner:
     def __init__(self, codigo: str):
@@ -81,6 +83,39 @@ class Scanner:
                     self.tokens.append(Token(TokenType.NUM, lex))
                 continue
 
+            isLineComment = self._peek2() == "//"
+            if isLineComment:
+                while True:
+                    current = self._advance()
+                    if current == "\n" or current == "\0":
+                        break
+
+
+            isMultilineComment = self._peek2() == "/*"
+            if isMultilineComment:
+                while True:
+                    if self._peek2() == "*/":
+                        self.i += 2
+                        break
+
+                    # edge case: comentário aberto e não fechado
+                    if self._peek() == "\0":
+                        break
+                        
+                    self.i += 1
+
+            isPreprocessorDirective = self._peek() == "#"
+            if isPreprocessorDirective:
+                lex = ""
+                while True:
+                    current = self._advance()
+                    if current == "\n" or current == "\0":
+                        self.tokens.append(Token(TokenType.PP_DIRECTIVE, lex))
+                        break
+
+                    lex += current
+        
+            
             # Operadores (checa primeiro os de 2 chars)
             two = self._peek2()
             if two in OPERATORS_2:
@@ -92,15 +127,21 @@ class Scanner:
                 continue
 
             # Delimitadores
+            PAIRS = {"(": ")", "[": "]", "{": "}"}
             if ch in DELIMS:
-                self.tokens.append(Token(DELIMS[ch], self._advance()))
+                if ch in PAIRS:
+                    stack.append(ch)
+                elif ch in PAIRS.values():
+                    if not stack:
+                        self.tokens.append(Token(TokenType.ERRO, self._advance()))
+                    else:
+                        stack.pop()
+                
+                self.tokens.append(Token(DELIMS[ch], self._advance()))               
                 continue
 
             # Qualquer outro caractere é erro
             self.tokens.append(Token(TokenType.ERRO, self._advance()))
-        
-
-
 
         # fim de arquivo
         self.tokens.append(Token(TokenType.EOF, ""))

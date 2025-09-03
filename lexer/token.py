@@ -13,6 +13,8 @@ class TokenType(Enum):
     NUM = auto()      # números inteiros
     EOF = auto()      # fim de arquivo
     ERRO = auto()     # sequência inválida (ex.: "8a")
+    STR_VALUE = auto()
+    PP_DIRECTIVE = auto()
 
     # operadores de 2 caracteres
     EQ = auto()       # ==
@@ -36,6 +38,8 @@ class TokenType(Enum):
     RPAREN = auto()   # )
     LBRACE = auto()   # {
     RBRACE = auto()   # }
+    LBRACK = auto()   # [
+    RBRACK = auto()   # ]
 
 # ------------------------------
 # Classe Token

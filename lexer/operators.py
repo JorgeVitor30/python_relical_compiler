@@ -25,4 +25,6 @@ DELIMS = {
     ")": TokenType.RPAREN,
     "{": TokenType.LBRACE,
     "}": TokenType.RBRACE,
+    "[": TokenType.LBRACK,
+    "]": TokenType.RBRACK
 }
