@@ -30,6 +30,7 @@ class TokenType(Enum):
     SLASH = auto()    # /
     LT = auto()       # <
     GT = auto()       # >
+    MOD = auto()      # %
 
     # delimitadores
     SEMI = auto()     # ;

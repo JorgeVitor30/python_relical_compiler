@@ -53,6 +53,17 @@ class Scanner:
         while self.i < len(self.codigo):
             ch = self._peek()
 
+            if ch == '"':
+                lex = ""
+                self.i += 1
+                while True:
+                    current = self._advance()
+                    if current == '"' or current == "\0":
+                        self.tokens.append(Token(TokenType.STR_VALUE, lex))
+                        break
+
+                    lex += current
+                    
             # ignora espaços em branco
             if ch.isspace():
                 self._advance()

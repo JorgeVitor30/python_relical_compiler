@@ -7,18 +7,24 @@ if __name__ == "__main__":
     int a = 10;
     int b = 30;
     // kkkkkkk jorge vitor comentarios
-    if (a >= 10)  // oi isso nao é pra quebrar
+    if (a >= 10) { // oi isso nao é pra quebrar
         a = b + 5;
     }
     #ifdef
     /* 
         oi nao eh pra quebrar
     oie*/
-    int a
+    int a;
     char greetings[] = "Hello World!";
     char gorgonzola = "q";
     float pi = 3.14;
     int dez = 10;
+
+    int soma = a + b;
+    int subtracao = a - b;
+    int multiplicacao = a * b;
+    int divisao = a / b;
+    int modulo = a % b;
     """
     sc = Scanner(codigo)
     sc.scan_all()

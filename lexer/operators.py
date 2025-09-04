@@ -16,6 +16,7 @@ OPERATORS_1 = {
     "/": TokenType.SLASH,
     "<": TokenType.LT,
     ">": TokenType.GT,
+    "%": TokenType.MOD,
 }
 # delimitadores (pontuação)
 DELIMS = {
