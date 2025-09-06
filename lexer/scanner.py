@@ -1,12 +1,3 @@
-from lexer.operators import OPERATORS_2, OPERATORS_1, DELIMS
-from lexer.keywords import KEYWORDS
-from lexer.token import TokenType, Token
-from typing import List, Dict
-from lexer.operators import DELIMS, OPERATORS_1, OPERATORS_2
-import pdb
-
-
-
 class Scanner:
     def __init__(self, text: str):
         self.text = text
