@@ -32,7 +32,7 @@ class LexicalCodeScanner(Scanner):
             self.symbols[name]["count"] += 1
 
         sym_id = self.symbols[name]["id"]
-        self.tokens.append(Token(TokenType.ID, f"id{sym_id}"))
+        self.tokens.append(Token(TokenType.ID, lexema=name, atributo=f"id{sym_id}"))
 
 
     def _is_string_start(self, ch: str) -> bool:
@@ -213,7 +213,7 @@ class LexicalCodeScanner(Scanner):
     def print_tokens(self):
         print("\n=== LISTA DE TOKENS ===")
         for t in self.tokens:
-            print(f"{t.tipo.name:<7}  {t.lexema}")
+            print(f"{t.tipo.name:<7}  {t.lexema}  {t.atributo if t.atributo else ''}")
 
     def print_symbol_table(self, sort_by_name: bool = False):
         print("\n=== TABELA DE SÍMBOLOS ===")
