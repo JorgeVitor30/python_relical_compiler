@@ -4,11 +4,10 @@ from lexer.keywords import KEYWORDS
 from lexer.token import TokenType, Token
 from typing import List, Dict
 from lexer.operators import DELIMS, OPERATORS_1, OPERATORS_2
-
 class LexicalCodeScanner(Scanner):
     def __init__(self, text: str):
         super().__init__(text)
-        self.tokens: List[Token] = []
+        self.tokens: List[Token] = []  # lista de tokens encontrados
         self.symbols: Dict[str, int] = {}
         self._next_sym_id = 1
         self._delimiter_stack = []
@@ -142,11 +141,16 @@ class LexicalCodeScanner(Scanner):
         return ch in DELIMS
     
     def _handle_delimiter(self, ch: str):
-        PAIRS = {"(": ")", "[": "]", "{": "}"}
-        if ch in PAIRS:
+        PAIRS = {")": "(", "]": "[", "}": "{"}
+        if ch in PAIRS.values():
             self._delimiter_stack.append(ch)
-        elif ch in PAIRS.values():
+        elif ch in PAIRS:
             if not self._delimiter_stack:
+                self.tokens.append(Token(TokenType.ERRO, self._advance()))
+                return
+
+            last_stack_value = self._delimiter_stack[-1]
+            if last_stack_value != PAIRS[ch]:
                 self.tokens.append(Token(TokenType.ERRO, self._advance()))
             else:
                 self._delimiter_stack.pop()
