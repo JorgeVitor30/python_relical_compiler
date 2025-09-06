@@ -59,8 +59,12 @@ class Scanner:
                 self.i += 1
                 while True:
                     current = self._advance()
-                    if current == '"' or current == "\0":
+                    if current == '"':
                         self.tokens.append(Token(TokenType.STR_VALUE, lex))
+                        break
+
+                    if current == "\n" or current == "\0":
+                        self.tokens.append(Token(TokenType.ERRO, lex))
                         break
 
                     lex += current
@@ -94,7 +98,6 @@ class Scanner:
                     while self._peek().isdigit():
                         lex += self._advance()
 
-                pdb.set_trace()
                 # se após número vier letra/_ → erro único (ex: "8a")
                 if self._is_ident_part(self._peek()):
                     while self._is_ident_part(self._peek()):
