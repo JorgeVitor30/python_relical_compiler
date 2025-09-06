@@ -7,7 +7,7 @@ from lexer.operators import DELIMS, OPERATORS_1, OPERATORS_2
 class LexicalCodeScanner(Scanner):
     def __init__(self, text: str):
         super().__init__(text)
-        self.tokens: List[Token] = []  # lista de tokens encontrados
+        self.tokens: List[Token] = []
         self.symbols: Dict[str, int] = {}
         self._next_sym_id = 1
         self._delimiter_stack = []
@@ -186,13 +186,11 @@ class LexicalCodeScanner(Scanner):
         self.tokens.append(Token(TokenType.EOF, ""))
         return self.tokens
 
-    # impressão simples da lista de tokens
     def print_tokens(self):
         print("\n=== LISTA DE TOKENS ===")
         for t in self.tokens:
             print(f"{t.tipo.name:<7}  {t.lexema}")
 
-    # impressão da tabela de símbolos
     def print_symbol_table(self, sort_by_name: bool = False):
         print("\n=== TABELA DE SÍMBOLOS ===")
         items = list(self.symbols.items())
