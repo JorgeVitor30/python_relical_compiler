@@ -36,7 +36,7 @@ class LexicalCodeScanner(Scanner):
 
 
     def _is_string_start(self, ch: str) -> bool:
-        return ch == '"'
+        return ch == '"' or ch == "'"
 
     def _handle_string_values(self):
         if self._peek() == '"':
@@ -55,6 +55,23 @@ class LexicalCodeScanner(Scanner):
                         break
 
                     lex += current
+
+        elif  self._peek() == "'":
+            lex = ""
+            self.i += 1
+            while True:
+                current = self._advance()
+                has_string_closed = current == "'"
+                if has_string_closed:
+                    self.tokens.append(Token(TokenType.STR_VALUE, lex))
+                    break
+
+                is_string_not_closed = current == "\n" or current == "\0"
+                if is_string_not_closed:
+                    self.tokens.append(Token(TokenType.ERRO, lex))
+                    break
+            
+                lex += current
 
 
     def _handle_space(self):
