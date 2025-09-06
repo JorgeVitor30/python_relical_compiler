@@ -155,7 +155,7 @@ class LexicalCodeScanner(Scanner):
             else:
                 self._delimiter_stack.pop()
         
-        self.tokens.append(Token(DELIMS[ch], self._advance()))               
+        self.tokens.append(Token(DELIMS[ch], self._advance()))
 
     def scan_all(self) -> List[Token]:
         while self.i < len(self.text):

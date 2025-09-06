@@ -39,6 +39,7 @@ class TokenType(Enum):
     LT = auto()       # <
     GT = auto()       # >
     MOD = auto()      # %
+    ADDRESS_OF = auto()  # &
 
     # delimitadores
     SEMI = auto()     # ;

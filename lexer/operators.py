@@ -25,6 +25,7 @@ OPERATORS_1 = {
     "<": TokenType.LT,
     ">": TokenType.GT,
     "%": TokenType.MOD,
+    "&": TokenType.ADDRESS_OF,
 }
 # delimitadores (pontuação)
 DELIMS = {
