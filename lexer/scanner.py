@@ -98,6 +98,15 @@ class Scanner:
                     while self._peek().isdigit():
                         lex += self._advance()
 
+                isFloatWithComma = nextTwoChars[0] == "," and nextTwoChars[1].isdigit()
+                if (isFloatWithComma):
+                    lex += self._advance()
+                    while self._peek().isdigit():
+                        lex += self._advance()
+                    self.tokens.append(Token(TokenType.ERRO, lex))
+                    continue
+                    
+
                 # se após número vier letra/_ → erro único (ex: "8a")
                 if self._is_ident_part(self._peek()):
                     while self._is_ident_part(self._peek()):
