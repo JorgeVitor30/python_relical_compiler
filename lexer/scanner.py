@@ -3,6 +3,7 @@ from lexer.keywords import KEYWORDS
 from lexer.token import TokenType, Token
 from typing import List, Dict
 from lexer.operators import DELIMS, OPERATORS_1, OPERATORS_2
+import pdb
 
 stack = []
 
@@ -85,6 +86,15 @@ class Scanner:
                 lex = self._advance()
                 while self._peek().isdigit():
                     lex += self._advance()
+
+                nextTwoChars = self._peek2()
+                isFloat = nextTwoChars[0] == "." and nextTwoChars[1].isdigit()
+                if (isFloat):
+                    lex += self._advance()
+                    while self._peek().isdigit():
+                        lex += self._advance()
+
+                pdb.set_trace()
                 # se após número vier letra/_ → erro único (ex: "8a")
                 if self._is_ident_part(self._peek()):
                     while self._is_ident_part(self._peek()):
