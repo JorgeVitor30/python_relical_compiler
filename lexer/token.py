@@ -21,6 +21,14 @@ class TokenType(Enum):
     NE = auto()       # !=
     LE = auto()       # <=
     GE = auto()       # >=
+    COMPOST_SUM = auto()  # +=
+    COMPOST_SUB = auto()  # -=
+    COMPOST_MUL = auto()  # *=
+    COMPOST_DIV = auto()  # /=
+    DEC = auto()      # --
+    INC = auto()      # ++
+    AND = auto()      # &&
+    OR = auto()       # ||
 
     # operadores de 1 caractere
     ASSIGN = auto()   # =

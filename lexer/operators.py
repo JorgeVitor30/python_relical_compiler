@@ -6,6 +6,14 @@ OPERATORS_2 = {
     "!=": TokenType.NE,
     "<=": TokenType.LE,
     ">=": TokenType.GE,
+    "++": TokenType.INC,
+    "--": TokenType.DEC,
+    "+=": TokenType.COMPOST_SUM,
+    "-=": TokenType.COMPOST_SUB,
+    "*=": TokenType.COMPOST_MUL,
+    "/=": TokenType.COMPOST_DIV,
+    "&&": TokenType.AND,
+    "||": TokenType.OR,
 }
 # operadores simples (1 char)
 OPERATORS_1 = {
