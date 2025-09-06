@@ -4,11 +4,12 @@ from lexer.keywords import KEYWORDS
 from lexer.token import TokenType, Token
 from typing import List, Dict
 from lexer.operators import DELIMS, OPERATORS_1, OPERATORS_2
+
 class LexicalCodeScanner(Scanner):
     def __init__(self, text: str):
         super().__init__(text)
         self.tokens: List[Token] = []
-        self.symbols: Dict[str, int] = {}
+        self.symbols: Dict[str, Dict[str, int]] = {}
         self._next_sym_id = 1
         self._delimiter_stack = []
 
@@ -22,9 +23,15 @@ class LexicalCodeScanner(Scanner):
 
     def _emit_identifier_incremental_id(self, name: str):
         if name not in self.symbols:
-            self.symbols[name] = self._next_sym_id
+            self.symbols[name] = {
+                "id": self._next_sym_id,
+                "count": 1
+            }
             self._next_sym_id += 1
-        sym_id = self.symbols[name]
+        else:
+            self.symbols[name]["count"] += 1
+
+        sym_id = self.symbols[name]["id"]
         self.tokens.append(Token(TokenType.ID, f"id{sym_id}"))
 
 
@@ -196,5 +203,5 @@ class LexicalCodeScanner(Scanner):
         items = list(self.symbols.items())
         if sort_by_name:
             items.sort(key=lambda x: x[0])  # ordena alfabeticamente
-        for name, idx in items:
-            print(f"id{idx:<3}  {name}")
+        for name, data in items:
+            print(f"id{data['id']:<3}  {name:<10}  ocorrências: {data['count']}")
